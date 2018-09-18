@@ -5,12 +5,12 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 
 credentials = ServiceAccountCredentials.from_json_keyfile_name('Personal finance-c9cd69e27773.json', scope)
 
-gc = gspread.authorize(credentials) #Stiamo autorizzando l'accesso al documento.
-wks = gc.open('Spese personali').sheet1
+gc = gspread.authorize(credentials) #We need to authorize the access to our Google Spreadsheet
+wks = gc.open('Spese personali').sheet1 #We need to create a variable to save the Google Spreadsheet
 
-money_comma = []
+money_comma = [] #In this list we are going to save every value with google numer's format (16,00 i.e.)
 money_str = []
-money_float = []
+money_float = [] #This list contains the same values of money_comma, but stored as float
 
 #We need to set 12 variables to 2 since each value starts from second row
 jan = 2
@@ -26,18 +26,18 @@ oct = 2
 nov = 2
 dec = 2
 
+#We are now going to read every column
 dates_list = wks.col_values(1)
 money_list = wks.col_values(3)
 
-#Now we need to delate the first two rows, because there are no values in them
+#Now we need to delate the first two rows because there are no values in them
 real_money_list = money_list[2:]
 print(real_money_list)
 real_dates_list = dates_list[2:]
 print(real_dates_list)
 
-print("comincia il ciclo for")
-
-#Taking all money from the list in google spreadsheet
+#We are now taking all money from the list in google spreadsheet.
+#Google save every value with '€' before numbers, we need to delate it in order to use them
 for i in real_money_list:
     i.split()
     money_comma.append(i.split()[1])
@@ -45,7 +45,7 @@ for i in real_money_list:
 
 #Delating comma from all values in money_comma, to convert them in float:
 #we read all list until the comma, we add a point and then we continue
-#with the rest of the number
+#with the rest of the list (numbers)
 for i in money_comma:
     money_str.append(i[:2] + '.' + i[3:])
 
@@ -53,8 +53,10 @@ for i in money_comma:
 for d in money_str:
     money_float.append(float(d))
 
-print(money_float)
+#print(money_float)
 
+#We want to store every data in the corret column (the correct month), so we simply need to check
+#the second element of the list in 'real_dates_list'
 for j, k in zip(real_dates_list, money_float):
 
     if j.split('/')[1] == '01':
