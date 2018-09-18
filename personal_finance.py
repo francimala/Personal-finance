@@ -1,9 +1,12 @@
 import gspread
+import os
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name('Personal finance-c9cd69e27773.json', scope)
+JSON_FILENAME = 'C:/Users/User/Google Drive/Documenti/Conoscenza personale/Python/Personal_finance_google_sheet/Personal finance-c9cd69e27773.json'
+credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_FILENAME, scope)
 
 gc = gspread.authorize(credentials) #We need to authorize the access to our Google Spreadsheet
 wks = gc.open('Spese personali').sheet1 #We need to create a variable to save the Google Spreadsheet
