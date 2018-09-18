@@ -29,6 +29,8 @@ oct = 2
 nov = 2
 dec = 2
 
+total_month = [0]*12
+
 #We are now going to read every column
 dates_list = wks.col_values(1)
 money_list = wks.col_values(3)
@@ -63,49 +65,53 @@ for d in money_str:
 for j, k in zip(real_dates_list, money_float):
 
     if j.split('/')[1] == '01':
-        wks.update_cell(jan, '6', k)
+        total_month[0] += k
         jan += 1
 
     if j.split('/')[1] == '02':
-        wks.update_cell(feb, '7', k)
+        total_month[1] += k
         feb += 1
 
     if j.split('/')[1] == '03':
-        wks.update_cell(mar, '8', k)
+        total_month[2] += k
         mar += 1
 
     if j.split('/')[1] == '04':
-        wks.update_cell(apr, '9', k)
+        total_month[3] += k
         apr += 1
 
     if j.split('/')[1] == '05':
-        wks.update_cell(may, '10', k)
+        total_month[4] += k
         may += 1
 
     if j.split('/')[1] == '06':
-        wks.update_cell(jun, '11', k)
+        total_month[5] += k
         jun += 1
 
     if j.split('/')[1] == '07':
-        wks.update_cell(jul, '12', k)
+        total_month[6] += k
         jul += 1
 
     if j.split('/')[1] == '08':
-        wks.update_cell(aug, '13', k)
+        total_month[7] += k
         aug += 1
 
     if j.split('/')[1] == '09':
-        wks.update_cell(sep, '14', k)
+        total_month[8] += k
         sep += 1
 
     if j.split('/')[1] == '10':
-        wks.update_cell(oct, '15', k)
+        total_month[9] += k
         oct += 1
 
     if j.split('/')[1] == '11':
-        wks.update_cell(nov, '16', k)
+        total_month[10] += k
         nov += 1
 
     if j.split('/')[1] == '12':
-        wks.update_cell(dec, '17', k)
+        total_month[11] += k
         dec += 1
+
+#Now we need to update every column
+for h in range(12):
+    wks.update_cell(2, h + 6, total_month[h])
