@@ -48,11 +48,16 @@ for i in real_money_list:
     money_comma.append(i.split()[1])
 #print(money_comma)
 
-#Delating comma from all values in money_comma, to convert them in float:
+#We are now delating all commas from all values in money_comma, in order to convert them in float:
 #we read all list until the comma, we add a point and then we continue
 #with the rest of the list (numbers)
 for i in money_comma:
-    money_str.append(i[:2] + '.' + i[3:])
+    if len(i) == 5:
+        money_str.append(i[:2] + '.' + i[3:])
+    elif len(i) == 4:
+        money_str.append(i[:1] + '.' + i[2:])
+    elif len(i) == 6:
+        money_str.append(i[:3] + '.' + i[4:])
 
 #Now we need to create a new list made of float
 for d in money_str:
