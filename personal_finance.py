@@ -5,7 +5,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
-JSON_FILENAME = 'C:/Users/User/Google Drive/Documenti/Conoscenza personale/Python/Personal_finance_google_sheet/Personal finance-c9cd69e27773.json'
+#IMPORTANT: if you are going to use it in Pietra Ligure you have to change "Francesco" with "User"
+JSON_FILENAME = 'C:/Users/Francesco/Google Drive/Documenti/Conoscenza personale/Python/Personal_finance_google_sheet/Personal finance-c9cd69e27773.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_FILENAME, scope)
 
 gc = gspread.authorize(credentials) #We need to authorize the access to our Google Spreadsheet
